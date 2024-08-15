@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container">
-
-    <TextView
-        android:id="@+id/txt_id"
-        style="@style/rv_main_textView"
-        android:layout_marginStart="@dimen/margin_8"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="id" />
+    android:id="@+id/dead_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_4"
+    android:background="@drawable/main_rv_item_shape">
 
     <TextView
         android:id="@+id/txt_time"
@@ -31,23 +24,23 @@
         android:id="@+id/txt_location_address"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
         android:layout_marginTop="@dimen/margin_8"
-        app:layout_constraintEnd_toStartOf="@id/btn_location_history"
+        android:fontFamily="casual"
+        app:layout_constraintEnd_toStartOf="@id/dead_img"
         app:layout_constraintStart_toStartOf="@id/innerGuideline"
         app:layout_constraintTop_toBottomOf="@id/txt_time"
         tools:text="Location" />
 
     <ImageButton
-        android:id="@+id/btn_location_history"
+        android:id="@+id/dead_img"
         android:layout_width="44dp"
         android:layout_height="44dp"
         android:layout_marginEnd="@dimen/margin_8"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/main_icon_shape"
+        android:src="@drawable/dead"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txt_location_address"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
     <androidx.constraintlayout.widget.Guideline

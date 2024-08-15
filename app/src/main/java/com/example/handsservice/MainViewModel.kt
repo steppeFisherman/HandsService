@@ -1,30 +1,26 @@
 package com.example.handsservice
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.data.Base
 import com.example.data.Item
 import com.example.data.Repository
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
+
     private val repository: Repository = Base()
-    private var _state = MutableStateFlow<List<Item>>(mutableListOf())
-
-    val state: StateFlow<List<Item>>
-        get() = _state.asStateFlow()
-
-//    fun createItem(): StateFlow<List<Item>> {
-//        _state.update { repository.fetchData() }
-//        return state
-//    }
-
-    suspend fun createItem(): StateFlow<List<Item>> {
-        val fetchData = repository.fetchData().firstOrNull()
-        _state.update { checkNotNull(fetchData) }
-        return state
+    private var mList = mutableListOf<Item>()
+    private var _state = MutableStateFlow<List<Item>>(emptyList())
+    val state get() = _state.asStateFlow()
+    fun createItem() {
+        viewModelScope.launch {
+            repository.fetchData(mList).collect { list ->
+                mList = list.toMutableList()
+                _state.emit(list)
+            }
+        }
     }
 }

@@ -3,24 +3,30 @@ package com.example.handsservice
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.handsservice.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
-    private val vm by viewModels<MainViewModel>()
     private lateinit var binding: ActivityMainBinding
+    private val vm by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val adapter = MainAdapter(this)
+        binding.rvMain.adapter = adapter
 
         lifecycleScope.launch {
-            vm.state.collect { state ->
-                state
-                val result = state
-                result
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                vm.state.collect { list ->
+                    adapter.submitList(list)
+                }
             }
         }
 
@@ -29,5 +35,10 @@ class MainActivity : AppCompatActivity() {
                 vm.createItem()
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.rvMain.adapter = null
     }
 }
