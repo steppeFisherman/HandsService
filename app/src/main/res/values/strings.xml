@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">HandsService</string>
+    <string name="dead">Мёртвая</string>
+    <string name="dead_desc">Мёртвая</string>
+    <string name="alive">Живая</string>
+    <string name="alive_desc">и шевелится!</string>
+    <string name="life">Жизнь</string>
+    <string name="life_desc">Ку-ку!</string>
+    <string name="cellular_fill">Клеточное наполнение</string>
+    <string name="create">Сотворить</string>
+</resources>

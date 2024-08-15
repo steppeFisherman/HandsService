@@ -1,0 +1,41 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.HandsService" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.HandsService" parent="Base.Theme.HandsService" />
+
+
+    <style name="AppMaterialButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:backgroundTint">@color/button_disabled</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/margin_main</item>
+        <item name="android:layout_marginEnd">@dimen/margin_main</item>
+        <item name="android:layout_marginBottom">@dimen/margin_main</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="rv_main_container">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/margin_10</item>
+        <item name="android:layout_marginEnd">@dimen/margin_10</item>
+        <item name="android:layout_marginTop">@dimen/margin_4</item>
+        <item name="android:paddingTop">@dimen/margin_8</item>
+        <item name="android:paddingBottom">@dimen/margin_8</item>
+        <item name="android:backgroundTint">@color/rv_main_container_color_selector</item>
+        <item name="android:background">@drawable/main_rv_item_shape</item>
+    </style>
+
+    <style name="rv_main_textView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/grey_category_textView</item>
+    </style>
+
+</resources>
+
