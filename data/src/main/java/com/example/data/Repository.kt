@@ -4,15 +4,19 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 interface Repository {
+
     suspend fun fetchData(list: MutableList<Item>): Flow<List<Item>>
+
 }
 
 class Base : Repository {
+
+    private val deadLifeTerms = DeadLifeTerms.ThreeByThree()
+
     override suspend fun fetchData(list: MutableList<Item>): Flow<List<Item>> {
 
-        list.add(Item("Мёртвая", "first desc"))
-        list.add(Item("Живая", "first desc"))
-        list.add(Item("Жизнь", "first desc"))
-        return flow<MutableList<Item>> { emit(list) }
+        val listFiltered = deadLifeTerms.filter(list).toMutableList()
+
+        return flow<MutableList<Item>> { emit(listFiltered) }
     }
 }

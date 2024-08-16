@@ -15,6 +15,7 @@ class MainViewModel : ViewModel() {
     private var mList = mutableListOf<Item>()
     private var _state = MutableStateFlow<List<Item>>(emptyList())
     val state get() = _state.asStateFlow()
+
     fun createItem() {
         viewModelScope.launch {
             repository.fetchData(mList).collect { list ->

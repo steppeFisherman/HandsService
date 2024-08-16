@@ -19,7 +19,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val adapter = MainAdapter(this)
+//        val adapter = MainAdapter(this)
+        val adapter = SimpleAdapter(this)
         binding.rvMain.adapter = adapter
 
         lifecycleScope.launch {

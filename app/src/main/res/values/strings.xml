@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">HandsService</string>
     <string name="dead">Мёртвая</string>
-    <string name="dead_desc">Мёртвая</string>
+    <string name="dead_desc">или прикидывается</string>
     <string name="alive">Живая</string>
     <string name="alive_desc">и шевелится!</string>
     <string name="life">Жизнь</string>

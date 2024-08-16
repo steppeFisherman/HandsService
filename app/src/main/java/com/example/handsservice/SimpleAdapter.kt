@@ -1,12 +1,11 @@
 package com.example.handsservice
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.data.Item
@@ -14,7 +13,10 @@ import com.example.handsservice.databinding.ItemRawAliveBinding
 import com.example.handsservice.databinding.ItemRawDeadBinding
 import com.example.handsservice.databinding.ItemRawNewLifeBinding
 
-class MainAdapter(private val context: Context) : ListAdapter<Item, MainAdapter.RecyclerViewHolder>(ItemCallback) {
+class SimpleAdapter(private val context: Context) :
+    RecyclerView.Adapter<SimpleAdapter.RecyclerViewHolder>() {
+
+    private var mList = emptyList<Item>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
 
@@ -36,13 +38,10 @@ class MainAdapter(private val context: Context) : ListAdapter<Item, MainAdapter.
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
 
-        val item = getItem(position)
-
         when (holder) {
 
             is RecyclerViewHolder.DeadHolder -> {
                 holder.deadBinding.apply {
-//                    root.tag = item
                     deadImg.animation = AnimationUtils
                         .loadAnimation(
                             holder.deadBinding.root.context,
@@ -53,7 +52,6 @@ class MainAdapter(private val context: Context) : ListAdapter<Item, MainAdapter.
 
             is RecyclerViewHolder.AliveHolder -> {
                 holder.aliveBinding.apply {
-//                    root.tag = item
                     aliveImg.animation = AnimationUtils
                         .loadAnimation(
                             holder.aliveBinding.root.context,
@@ -64,7 +62,6 @@ class MainAdapter(private val context: Context) : ListAdapter<Item, MainAdapter.
 
             is RecyclerViewHolder.NewLifeHolder -> {
                 holder.lifeBinding.apply {
-//                    root.tag = item
                     newLifeImg.animation = AnimationUtils
                         .loadAnimation(
                             holder.lifeBinding.root.context,
@@ -75,6 +72,13 @@ class MainAdapter(private val context: Context) : ListAdapter<Item, MainAdapter.
         }
     }
 
+    override fun getItemCount(): Int = mList.size
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun submitList(list: List<Item>) {
+        mList = list
+        notifyDataSetChanged()
+    }
 
     sealed class RecyclerViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
         class DeadHolder(val deadBinding: ItemRawDeadBinding) : RecyclerViewHolder(deadBinding)
@@ -84,23 +88,13 @@ class MainAdapter(private val context: Context) : ListAdapter<Item, MainAdapter.
     }
 
     override fun getItemViewType(position: Int): Int {
-        val item = getItem(position)
+        val item = mList[position]
         val dead = ContextCompat.getString(context, R.string.dead)
         val alive = ContextCompat.getString(context, R.string.alive)
         return when (item.name) {
             dead -> TYPE_DEAD
             alive -> TYPE_ALIVE
             else -> TYPE_NEW_LIFE
-        }
-    }
-
-    object ItemCallback : DiffUtil.ItemCallback<Item>() {
-        override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
-            return false
-        }
-
-        override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
-            return false
         }
     }
 
