@@ -1,10 +1,8 @@
 package com.example.handsservice
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -39,45 +37,16 @@ class SimpleAdapter(private val context: Context) :
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
 
         when (holder) {
-
-            is RecyclerViewHolder.DeadHolder -> {
-                holder.deadBinding.apply {
-                    deadImg.animation = AnimationUtils
-                        .loadAnimation(
-                            holder.deadBinding.root.context,
-                            R.anim.fade_transition_animation
-                        )
-                }
-            }
-
-            is RecyclerViewHolder.AliveHolder -> {
-                holder.aliveBinding.apply {
-                    aliveImg.animation = AnimationUtils
-                        .loadAnimation(
-                            holder.aliveBinding.root.context,
-                            R.anim.fade_transition_animation
-                        )
-                }
-            }
-
-            is RecyclerViewHolder.NewLifeHolder -> {
-                holder.lifeBinding.apply {
-                    newLifeImg.animation = AnimationUtils
-                        .loadAnimation(
-                            holder.lifeBinding.root.context,
-                            R.anim.fade_transition_animation
-                        )
-                }
-            }
+            is RecyclerViewHolder.DeadHolder -> holder.deadBinding
+            is RecyclerViewHolder.AliveHolder -> holder.aliveBinding
+            is RecyclerViewHolder.NewLifeHolder -> holder.lifeBinding
         }
     }
 
     override fun getItemCount(): Int = mList.size
 
-    @SuppressLint("NotifyDataSetChanged")
     fun submitList(list: List<Item>) {
         mList = list
-        notifyDataSetChanged()
     }
 
     sealed class RecyclerViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {

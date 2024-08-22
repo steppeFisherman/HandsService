@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        val adapter = MainAdapter(this)
         val adapter = SimpleAdapter(this)
         binding.rvMain.adapter = adapter
 
@@ -27,6 +26,7 @@ class MainActivity : AppCompatActivity() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 vm.state.collect { list ->
                     adapter.submitList(list)
+                    binding.rvMain.scrollToPosition(list.lastIndex)
                 }
             }
         }
