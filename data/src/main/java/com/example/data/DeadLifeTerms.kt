@@ -10,6 +10,7 @@ interface DeadLifeTerms {
 
         private val predicateDead: (Item) -> Boolean = { it.name == "Мёртвая" }
         private val predicateAlive: (Item) -> Boolean = { it.name == "Живая" }
+        private val newLife = Item("Жизнь")
 
         override fun filter(list: MutableList<Item>): List<Item> {
 
@@ -23,8 +24,12 @@ interface DeadLifeTerms {
                 val lastThreeAlive = lastThreeElements.all(predicateAlive)
                 val lastThreeDead = lastThreeElements.all(predicateDead)
 
-                if (lastThreeAlive) list.add(Item("Жизнь"))
-                if (lastThreeDead) list.remove(Item("Жизнь"))
+                if (lastThreeAlive) list.add(newLife)
+
+                if (lastThreeDead && list.contains(newLife)) {
+                    val indexToRemove = list.lastIndexOf(newLife)
+                    list.removeAt(indexToRemove)
+                }
             }
             return list
         }
