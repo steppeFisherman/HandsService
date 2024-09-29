@@ -42,4 +42,10 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         binding.rvMain.adapter = null
     }
+
+ fun fff (){
+
+ }
+
+
 }
